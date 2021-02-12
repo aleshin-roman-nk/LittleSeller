@@ -33,7 +33,7 @@ namespace LettleSellerKost.BL.Web
 			webSender.PutTransaction(new Transaction("reg_receipt", r));
 		}
 
-		public void RegisterShiftTrans(Shift shift)// Лучше все проекты положить в одну папку проекта. и пхп и с#
+		public void RegisterShiftTrans(Shift shift)
 		{
 			webSender.PutTransaction(new Transaction("reg_shift", shift));
 		}

@@ -1,0 +1,10 @@
+
+body{
+	background: #F6F1DE;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th
+{
+   //background-color: #b9def0;
+   background-color: #F6F1EE;
+}

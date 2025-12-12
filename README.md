@@ -27,8 +27,10 @@ It helps manage a dishes database, build a daily (shift) menu, print the menu, o
 
 **Main screen**
 ![Main screen](docs/images/main.png)
+
 **Dishes Catalog & Menu Builder screen**
 ![Daily menu](docs/images/menu.png)
+
 **Daily Menu Print Preview**
 ![Receipt print](docs/images/print.png)
 

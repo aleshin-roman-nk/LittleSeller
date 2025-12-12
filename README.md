@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/images/logo.png" alt="LittleSeller logo" width="160" />
+</p>
+
 # LittleSeller
 
 **LittleSeller** is a laptop POS application for a mobile / field kitchen.  

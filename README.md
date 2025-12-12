@@ -1,95 +1,109 @@
 # LittleSeller
 
-**LittleSeller** — кассовое приложение для выездной кухни (laptop POS).  
-Помогает вести базу блюд, собирать сменное меню из базы, печатать меню, открывать/закрывать смены и оформлять чеки с отправкой в фискальный накопитель и на удалённый сервер статистики продаж.
+**LittleSeller** is a laptop POS application for a mobile / field kitchen.  
+It helps manage a dishes database, build a daily (shift) menu, print the menu, open/close shifts, and process receipts with delivery to a fiscal device and to a remote sales statistics server.
 
 ---
 
-## Возможности
+## Features
 
-- Редактируемая база блюд (добавление/изменение).
-- Создание **сменного меню** путём добавления блюд из базы.
-- Генерация и печать сменного меню с категориями (супы, гарниры, напитки и т.д.).
-- Открытие / закрытие смены.
-- Открытие / закрытие чека.
-- Отправка чека в интегрированный фискальный накопитель.
-- Отправка чека на удалённый сервер статистики продаж.
-- **Надёжная отправка чеков** на сервер:
-  - устойчивость к плохому интернету,
-  - асинхронная отправка в отдельном потоке,
-  - предотвращение дублирования чеков на сервере.
-
-## Скриншоты
-![Главный экран](docs/images/main.png)
-![Сменное меню](docs/images/menu.png)
-![Чек](docs/images/print.png)
+- Editable dishes database (add / update items).
+- Build a **daily (shift) menu** by selecting dishes from the database.
+- Generate and print the daily menu with categories (soups, sides, drinks, etc.).
+- Open / close a shift.
+- Open / close a receipt.
+- Send receipts to an integrated fiscal device.
+- Send receipts to a remote sales statistics server.
+- **Reliable receipt delivery** to the server:
+  - works under poor/unstable internet,
+  - asynchronous sending in a background thread,
+  - prevents duplicate receipts on the server.
 
 ---
 
-## Технологии
+## Screenshots
+
+![Main screen](docs/images/main.png)  
+![Daily menu](docs/images/menu.png)  
+![Receipt print](docs/images/print.png)
+
+---
+
+## Tech Stack
 
 ### Desktop (WinForms)
-- WinForms
-- Entity Framework
-- SQLite
-- `async/await`
-- `lock`
-- Архитектура: **MVP (Model–View–Presenter)**
+
+- WinForms  
+- Entity Framework  
+- SQLite  
+- `async/await`  
+- `lock`  
+- Architecture: **MVP (Model–View–Presenter)**
 
 ### Server
-- PHP (самописный движок)
+
+- PHP (custom engine)  
 - MySQL
 
 ---
 
-## Архитектурная идея (коротко)
+## Architecture (high level)
 
-- UI построен в стиле **MVP**: логика вынесена в Presenter, UI остаётся максимально “тонким”.
-- Отправка чеков на сервер работает **асинхронно** и не блокирует кассу при плохом интернете.
-- Для надёжности используется механизм гарантированной доставки и защита от дублей (идемпотентность на стороне сервера / проверка уникальности чеков — концептуально).
+- UI follows the **MVP** pattern: most logic lives in Presenters, the UI stays “thin”.
+- Receipt sending is **asynchronous** and does not block the cashier workflow under poor internet.
+- Reliability is achieved via a guaranteed delivery approach and anti-duplication logic (conceptually: idempotency / unique receipt checks on the server side).
 
 ---
 
-## Структура репозитория
+## Repository Structure
 
-```txt
-/Desktop   - касса на WinForms
-/Server    - PHP-сервер статистики продаж
-```
+- `/Desktop` — WinForms POS application  
+- `/Server` — PHP sales statistics server  
 
-## Запуск (Desktop)
+---
 
-### Требования
+## Running (Desktop)
+
+### Requirements
+
 - Windows
 - .NET Framework
-- Visual Studio
+- Visual Studio (optional)
 
-### Важно про базу данных (SQLite)
-Проект использует **готовый SQLite-файл**, который создавался вручную (миграций EF нет).
-Чтобы приложение стартовало корректно, нужен файл базы данных с уже подготовленной схемой.
+### Important: SQLite database
 
-**Что сделать:**
-1. Возьмите файл базы данных: `Desktop\LettleSeller\kassa.db`.
-2. Поместите его в: `Desktop\LettleSeller\bin\db\`.
+This project uses a **pre-created SQLite file** that was created manually (there are no EF migrations).  
+To run the app, you need a database file with the correct schema.
 
-## Запуск (Server, PHP) — статус
+**Steps:**
+1. Take the database file: `Desktop\LettleSeller\kassa.db` (verify the exact path/name).
+2. Put it into: `Desktop\LettleSeller\bin\db\`.
 
-В репозитории есть папка `/Server` с PHP-частью (сервер статистики продаж).
+---
 
-⚠️ В текущем виде серверная часть **не является полностью воспроизводимой из репозитория**, потому что:
-- база MySQL и таблицы создавались вручную через phpMyAdmin (без миграций/SQL-дампа),
-- развёртывание выполнялось вручную (например, загрузкой файлов на хостинг по FTP),
-- точные шаги и схема БД сейчас не зафиксированы в виде скриптов.
+## Running (Server, PHP) — status
 
-### Что это значит
-- Код `/Server` можно использовать как **reference** (пример реализации и логики),
-- но «поднять сервер с нуля» стороннему человеку сейчас будет сложно без дополнительной документации/дампа БД.
+The repository contains the `/Server` folder with the PHP part (sales statistics server).
 
-### План (Roadmap)
-- [ ] Добавить SQL-дамп (schema.sql) или миграции/скрипт создания таблиц
-- [ ] Описать настройку конфигов и окружения
-- [ ] Упаковать сервер в Docker для простого запуска
+⚠️ At the moment, the server side is **not fully reproducible from this repository**, because:
+- the MySQL tables were created manually via phpMyAdmin (no migrations / no SQL dump),
+- deployment was done manually (e.g., uploading files to hosting via FTP),
+- the full setup steps and database schema are not captured as scripts.
 
-## Автор
+### What it means
+
+- `/Server` can be used as a **reference** (implementation and logic),
+- but it may be difficult to deploy it from scratch without additional documentation / a DB dump.
+
+### Roadmap
+
+- [ ] Add an SQL dump (`schema.sql`) or a table-creation script  
+- [ ] Document environment/config setup  
+- [ ] Package the server with Docker for easy local run  
+
+---
+
+## Author
+
 - GitHub: [aleshin-roman-nk](https://github.com/aleshin-roman-nk)
 - LinkedIn: [Roman Aleshin](https://www.linkedin.com/in/roman-aleshin)

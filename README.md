@@ -112,3 +112,6 @@ The repository contains the `/Server` folder with the PHP part (sales statistics
 
 - GitHub: [aleshin-roman-nk](https://github.com/aleshin-roman-nk)
 - LinkedIn: [Roman Aleshin](https://www.linkedin.com/in/roman-aleshin)
+
+## License
+MIT License. See `LICENSE`.

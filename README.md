@@ -76,7 +76,7 @@ This project uses a **pre-created SQLite file** that was created manually (there
 To run the app, you need a database file with the correct schema.
 
 **Steps:**
-1. Take the database file: `Desktop\LettleSeller\kassa.db` (verify the exact path/name).
+1. Take the database file: `Desktop\LettleSeller\kassa.db`.
 2. Put it into: `Desktop\LettleSeller\bin\db\`.
 
 ---

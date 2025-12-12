@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="docs/images/logo.png" alt="LittleSeller logo" width="160" />
-</p>
+![LittleSeller logo](docs/images/logo.png)
 
 # LittleSeller
 

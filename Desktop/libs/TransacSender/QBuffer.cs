@@ -12,6 +12,8 @@ namespace TransacSender
 		string file_repos_name;
 		string thisName;
 
+
+
 		public QBuffer(string reponame)
 		{
 			thisName = reponame;
@@ -114,7 +116,7 @@ namespace TransacSender
 				return queue.Peek();
 			}
 		}
-		// Необходимо еще фиксировать на диске.
+
 		public void PutItem(TEntity ent)
 		{
 			lock (this)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace TransacSender
 {
@@ -104,7 +105,7 @@ namespace TransacSender
 				State = ATStatus.Working;
 				StateChanged?.Invoke(State);
 
-				await goOnce();
+				action?.Invoke();
 				Update?.Invoke(100);
 
 				if (token.IsCancellationRequested)
